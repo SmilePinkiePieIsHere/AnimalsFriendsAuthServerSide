@@ -13,8 +13,8 @@ namespace AnimalsFriends.Repositories
              new TestUser
               {
                   SubjectId = "a9ea0f25-b964-409f-bcce-c92326624921",
-                  Username = "admin",
-                  Password = "admin",
+                  Username = "user",
+                  Password = "user123",
               }
         };
 
