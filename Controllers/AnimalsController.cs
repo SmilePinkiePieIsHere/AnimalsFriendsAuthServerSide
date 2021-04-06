@@ -68,9 +68,9 @@ namespace AnimalsFriends.Controllers
                 return NotFound();
 
                 throw;
-            }           
+            }
 
-            return NoContent();
+            return Ok(animal); /// NoContent();
         }
 
         [HttpDelete("{id}")]
