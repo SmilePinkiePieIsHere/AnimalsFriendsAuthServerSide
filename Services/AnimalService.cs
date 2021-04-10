@@ -30,6 +30,11 @@ namespace AnimalsFriends.Services
                 animals = animals.Where(a => a.CurrentStatus.ToString().ToLower() == queryParameters.Status.ToLower());
             }
 
+            if (queryParameters.Gender != null)
+            {
+                animals = animals.Where(a => a.Gender.ToString().ToLower() == queryParameters.Gender.ToLower());
+            }
+
             if (queryParameters.Species != null)
             {
                 animals = animals.Where(a => a.Species.ToString().ToLower() == queryParameters.Species.ToLower());

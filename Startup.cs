@@ -37,7 +37,7 @@ namespace AnimalsFriends
             {
                 options.AddPolicy("AllowAll", builder =>
                     //fix this to use configurationmanager setting, because we will have dev/staging/prod environments
-                    builder.WithOrigins("https://localhost:3000")
+                    builder.WithOrigins("http://localhost:3000")
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
@@ -86,7 +86,7 @@ namespace AnimalsFriends
         {
             app.UseCors(builder =>
                 builder
-                    .WithOrigins("https://localhost:3000")
+                    .WithOrigins("http://localhost:3000")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials());
