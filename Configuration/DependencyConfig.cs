@@ -1,6 +1,6 @@
 ﻿using IdentityServer4.Validation;
-using AnimalsFriends.Contracts.Repositories;
-using AnimalsFriends.Contracts.Services;
+using AnimalsFriends.Interfaces.Repositories;
+using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Controllers;
 using AnimalsFriends.Repositories;
 using AnimalsFriends.Services;

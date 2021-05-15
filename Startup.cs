@@ -44,11 +44,8 @@ namespace AnimalsFriends
             });
 
             //services.AddDbContext<AnimalsFriendsContext>(options => options.UseInMemoryDatabase("AnimalsFriends"));
-            var connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-            //var optionsBuilder = new DbContextOptionsBuilder<AnimalsFriendsContext>();
-            //optionsBuilder.UseSqlServer(connectionString);
-            //services.AddDbContext<AnimalsFriendsContext>(options => new DbContextOptionsBuilder<AnimalsFriendsContext>());
+            //Configuration.GetConnectionString("DefaultConnection"))
+            var connectionString = this.Configuration.GetSection("ConnectionStrings").GetSection("AnimalsFriendsDB").Value;
             services.AddDbContext<AnimalsFriendsContext>(options => options.UseSqlServer(connectionString));
 
             services.AddControllers()
@@ -60,8 +57,6 @@ namespace AnimalsFriends
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
                 options.JsonSerializerOptions.AllowTrailingCommas = false;
             });
-
-            //services.AddDbContext<CatalogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentityServer()
                 .AddInMemoryApiResources(InMemoryConfig.GetApiResources())

@@ -1,7 +1,7 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Test;
 using IdentityServer4.Validation;
-using AnimalsFriends.Contracts.Repositories;
+using AnimalsFriends.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
