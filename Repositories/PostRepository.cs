@@ -1,6 +1,6 @@
 ﻿using IdentityServer4.Test;
 using AnimalsFriends.Configuration;
-using AnimalsFriends.Contracts.Repositories;
+using AnimalsFriends.Interfaces.Repositories;
 using AnimalsFriends.Models;
 using System;
 using System.Collections.Generic;

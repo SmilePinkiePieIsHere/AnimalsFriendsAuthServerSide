@@ -1,6 +1,6 @@
 ﻿using IdentityServer4.Test;
-using AnimalsFriends.Contracts.Repositories;
-using AnimalsFriends.Contracts.Services;
+using AnimalsFriends.Interfaces.Repositories;
+using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

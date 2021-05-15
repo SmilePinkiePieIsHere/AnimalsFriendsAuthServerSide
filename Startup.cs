@@ -43,7 +43,13 @@ namespace AnimalsFriends
                     .AllowAnyHeader());
             });
 
-            services.AddDbContext<AnimalsFriendsContext>(options => options.UseInMemoryDatabase("Animals"));
+            //services.AddDbContext<AnimalsFriendsContext>(options => options.UseInMemoryDatabase("AnimalsFriends"));
+            var connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            //var optionsBuilder = new DbContextOptionsBuilder<AnimalsFriendsContext>();
+            //optionsBuilder.UseSqlServer(connectionString);
+            //services.AddDbContext<AnimalsFriendsContext>(options => new DbContextOptionsBuilder<AnimalsFriendsContext>());
+            services.AddDbContext<AnimalsFriendsContext>(options => options.UseSqlServer(connectionString));
 
             services.AddControllers()
             // Below JSON options are the default for ASP NET CORE 3.1

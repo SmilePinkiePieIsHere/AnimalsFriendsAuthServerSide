@@ -1,10 +1,10 @@
 ﻿using AnimalsFriends.Helpers;
 using AnimalsFriends.Models;
-using AnimalsFriends.Contracts.Repositories;
+using AnimalsFriends.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using AnimalsFriends.Contracts.Services;
+using AnimalsFriends.Interfaces.Services;
 
 namespace AnimalsFriends.Services
 {

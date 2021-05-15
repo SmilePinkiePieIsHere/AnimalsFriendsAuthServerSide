@@ -1,5 +1,5 @@
 ﻿using IdentityServer4.Test;
-using AnimalsFriends.Contracts.Repositories;
+using AnimalsFriends.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;

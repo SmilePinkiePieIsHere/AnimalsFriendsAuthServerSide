@@ -1,4 +1,4 @@
-﻿using AnimalsFriends.Contracts.Services;
+﻿using AnimalsFriends.Interfaces.Services;
 
 namespace AnimalsFriends.Services
 {

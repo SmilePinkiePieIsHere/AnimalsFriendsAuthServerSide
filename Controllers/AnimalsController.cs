@@ -1,6 +1,6 @@
 ﻿using AnimalsFriends.Helpers;
 using AnimalsFriends.Models;
-using AnimalsFriends.Contracts.Services;
+using AnimalsFriends.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
