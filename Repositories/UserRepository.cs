@@ -10,12 +10,12 @@ namespace AnimalsFriends.Repositories
     {
         static List<TestUser> users = new List<TestUser>
         {
-             new TestUser
-              {
-                  SubjectId = "a9ea0f25-b964-409f-bcce-c92326624921",
-                  Username = "user",
-                  Password = "user123",
-              }
+             //new TestUser
+             // {
+             //     SubjectId = "a9ea0f25-b964-409f-bcce-c92326624921",
+             //     Username = "user",
+             //     Password = "user123",
+             // }
         };
 
         public void AddUser(TestUser user)
