@@ -43,8 +43,8 @@ namespace AnimalsFriends.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Posts_Animals");
             });
-
-            modelBuilder.Seed();
+            
+            //modelBuilder.Seed();
         }
 
         public DbSet<Animal> Animals { get; set; }
@@ -52,5 +52,7 @@ namespace AnimalsFriends.Models
         public DbSet<User> Users { get; set; }
 
         public DbSet<Post> Posts { get; set; }
+
+       
     }
 }

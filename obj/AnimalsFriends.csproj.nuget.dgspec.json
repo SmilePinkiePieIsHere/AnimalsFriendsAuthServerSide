@@ -40,6 +40,10 @@
         "netcoreapp3.0": {
           "targetAlias": "netcoreapp3.0",
           "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
+            },
             "IdentityServer4": {
               "target": "Package",
               "version": "[3.0.0, )"
