@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Университет\\Магистратура\\дипломна\\AnimalFriendsServerSideAuth\\AnimalsFriendsAuth\\AnimalsFriends.csproj": {}
+    "C:\\Projects\\AnimalsFriendsAuthServerSide\\AnimalsFriends.csproj": {}
   },
   "projects": {
-    "D:\\Университет\\Магистратура\\дипломна\\AnimalFriendsServerSideAuth\\AnimalsFriendsAuth\\AnimalsFriends.csproj": {
+    "C:\\Projects\\AnimalsFriendsAuthServerSide\\AnimalsFriends.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Университет\\Магистратура\\дипломна\\AnimalFriendsServerSideAuth\\AnimalsFriendsAuth\\AnimalsFriends.csproj",
+        "projectUniqueName": "C:\\Projects\\AnimalsFriendsAuthServerSide\\AnimalsFriends.csproj",
         "projectName": "AnimalsFriends",
-        "projectPath": "D:\\Университет\\Магистратура\\дипломна\\AnimalFriendsServerSideAuth\\AnimalsFriendsAuth\\AnimalsFriends.csproj",
-        "packagesPath": "C:\\Users\\pevan\\.nuget\\packages\\",
-        "outputPath": "D:\\Университет\\Магистратура\\дипломна\\AnimalFriendsServerSideAuth\\AnimalsFriendsAuth\\obj\\",
+        "projectPath": "C:\\Projects\\AnimalsFriendsAuthServerSide\\AnimalsFriends.csproj",
+        "packagesPath": "C:\\Users\\Danichka\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\AnimalsFriendsAuthServerSide\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\pevan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Danichka\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -108,7 +105,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
