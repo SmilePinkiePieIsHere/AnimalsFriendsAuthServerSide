@@ -44,7 +44,7 @@ namespace AnimalsFriends.Models
                     .HasConstraintName("FK_Posts_Animals");
             });
 
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
         }
 
         public DbSet<Animal> Animals { get; set; }
