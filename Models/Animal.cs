@@ -37,7 +37,7 @@ namespace AnimalsFriends.Models
         [InverseProperty("Animal")]
         public virtual User User { get; set; }
 
-        [InverseProperty("Post")]
+        [InverseProperty("Animal")]
         public virtual ICollection<Post> Post { get; set; }
     }
 }

@@ -21,10 +21,10 @@ namespace AnimalsFriends.Models
         [StringLength(256)]
         public string Password { get; set; }
 
-        [InverseProperty("Animal")]
+        [InverseProperty("User")]
         public virtual ICollection<Animal> Animal { get; set; }
 
-        [InverseProperty("Post")]
+        [InverseProperty("User")]
         public virtual ICollection<Post> Post { get; set; }
     }
 }

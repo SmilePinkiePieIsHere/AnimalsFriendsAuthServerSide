@@ -31,6 +31,7 @@ namespace AnimalsFriends.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Post)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Posts_Users");
             });
 
@@ -39,6 +40,7 @@ namespace AnimalsFriends.Models
                 entity.HasOne(d => d.Animal)
                     .WithMany(p => p.Post)
                     .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Posts_Animals");
             });
 
