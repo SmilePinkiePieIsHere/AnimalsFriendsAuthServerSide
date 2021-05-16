@@ -21,7 +21,7 @@ namespace AnimalsFriends.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetAnimals([FromQuery] AnimalQueryParameters queryParameters)
+        public IActionResult GetAll([FromQuery] AnimalQueryParameters queryParameters)
         {
             return Ok(_animalService.GetAll(queryParameters)); 
         }

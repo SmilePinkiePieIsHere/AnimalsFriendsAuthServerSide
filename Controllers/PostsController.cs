@@ -1,42 +1,48 @@
 ﻿using AnimalsFriends.Helpers;
+using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace AnimalsFriends.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly AnimalsFriendsContext _context;
-        public PostsController(AnimalsFriendsContext context)
+        private readonly IPostService _postService;
+        public PostsController(IPostService postService)
         {
-            _context = context;
-
-            //_context.Database.EnsureCreated();
+            _postService = postService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
+        public IActionResult GetAll([FromQuery] PostQueryParameters queryParameters)
         {
-            IQueryable<Post> posts = _context.Posts;
-
-            posts = posts
-                .Skip(queryParameters.Size * (queryParameters.Page - 1))
-                .Take(queryParameters.Size);
-
-            return Ok(posts.ToArray());
+            return Ok(_postService.GetAll(queryParameters));
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetPost(int id)
+
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public ActionResult GetAnimal(int id)
         {
-            var post = _context.Posts.Find(id);
+            var post = _postService.Get(id);
             if (post == null)
             {
                 return NotFound();
             }
+            return Ok(post);
+        }
+
+        [HttpPost]
+        public ActionResult AddPost([FromBody] Post post)
+        {
+            _postService.Add(post);
+            var test = CreatedAtAction("GetPost", new { id = post.Id }, post);
             return Ok(post);
         }
     }
