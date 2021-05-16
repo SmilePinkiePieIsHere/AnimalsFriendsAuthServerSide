@@ -6,10 +6,10 @@ namespace AnimalsFriends.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        void AddUser(User user);
+        List<User> GetAll();
 
-        List<User> GetUsers();
+        User Get(string id);
 
-        User GetUserById(string id);
+        void Add(User user);
     }
 }

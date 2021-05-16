@@ -21,7 +21,7 @@ namespace AnimalsFriends.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetAll([FromQuery] AnimalQueryParameters queryParameters)
+        public IActionResult GetAnimals([FromQuery] AnimalQueryParameters queryParameters)
         {
             return Ok(_animalService.GetAll(queryParameters)); 
         }
@@ -30,7 +30,7 @@ namespace AnimalsFriends.Controllers
         [HttpGet("{id}")]
         public ActionResult GetAnimal(int id)
         {
-            var animal = _animalService.GetAnimal(id);
+            var animal = _animalService.Get(id);
             if (animal == null)
             {
                 return NotFound();
@@ -41,7 +41,7 @@ namespace AnimalsFriends.Controllers
         [HttpPost]
         public ActionResult AddAnimal([FromBody] Animal animal)
         {
-            _animalService.AddAnimal(animal);
+            _animalService.Add(animal);
             var test = CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
             return Ok(animal);
         }
@@ -56,7 +56,7 @@ namespace AnimalsFriends.Controllers
 
             try
             {
-                _animalService.UpdateAnimal(animal);               
+                _animalService.Update(animal);               
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -76,14 +76,14 @@ namespace AnimalsFriends.Controllers
         [HttpDelete("{id}")]
         public ActionResult RemoveAnimal([FromRoute] int id)
         {
-            var animal = _animalService.FindAnimal(id);
+            var animal = _animalService.Find(id);
 
             if (animal == null)
             {
                 return NotFound();
             }
 
-            _animalService.DeleteAnimal(animal);
+            _animalService.Delete(animal);
 
             return Ok(animal); //(ActionResult)animal
         }

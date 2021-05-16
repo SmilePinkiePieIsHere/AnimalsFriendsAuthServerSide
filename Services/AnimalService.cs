@@ -11,22 +11,15 @@ namespace AnimalsFriends.Services
     public class AnimalService : IAnimalService
     {
         private readonly IAnimalRepository _animalRepository;
-        private readonly AnimalsFriendsContext _context;
 
         public AnimalService(IAnimalRepository animalRepository, AnimalsFriendsContext context)
         {
             _animalRepository = animalRepository;
-            _context = context;
-            
-            //_context.Database.EnsureCreated();
-            //_context.SaveChanges();
-
-            //AnimalsFriendsSeedDB.SeedAnimals(context);            
         }
 
         public List<Animal> GetAll(AnimalQueryParameters queryParameters)
         {
-            IQueryable<Animal> animals = _context.Animals;
+            IQueryable<Animal> animals = _animalRepository.GetAll();
 
             if (queryParameters.Status != null)
             {
@@ -53,32 +46,29 @@ namespace AnimalsFriends.Services
             return  animals.ToList();
         }
 
-        public Animal GetAnimal(int id)
+        public Animal Get(int id)
         {
-            return _context.Animals.Find(id);
+            return _animalRepository.Get(id);
         }
 
-        public void AddAnimal(Animal animal)
+        public void Add(Animal animal)
         {
-            _context.Animals.Add(animal);
-            _context.SaveChanges();           
+            _animalRepository.Add(animal);
         }
 
-        public void UpdateAnimal(Animal animal)
+        public void Update(Animal animal)
         {
-            _context.Entry(animal).State = EntityState.Modified;
-            _context.SaveChanges();
+            _animalRepository.Update(animal);
         }
 
-        public void DeleteAnimal(Animal animal)
+        public void Delete(Animal animal)
         {
-            _context.Animals.Remove(animal);
-            _context.SaveChanges();
+            _animalRepository.Delete(animal);
         }
 
-        public Animal FindAnimal(int id)
+        public Animal Find(int id)
         {
-            return _context.Animals.Find(id);
+            return _animalRepository.Find(id);
         }
     }
 }

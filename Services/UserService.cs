@@ -15,18 +15,11 @@ namespace AnimalsFriends.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly AnimalsFriendsContext _context;
         private static readonly HttpClient client = new HttpClient();
 
         public UserService(IUserRepository userRepository, AnimalsFriendsContext context)
         {
             _userRepository = userRepository;
-            _context = context;
-
-            //_context.Database.EnsureCreated();
-            //_context.SaveChanges();
-
-            //AnimalsFriendsSeedDB.SeedUsers(context);
         }
 
         public async Task<OWinResponseToken> Register(User user)
@@ -34,7 +27,7 @@ namespace AnimalsFriends.Services
             User newUser = user;
             newUser.Id = Guid.NewGuid().ToString();           
 
-            _userRepository.AddUser(newUser);
+            _userRepository.Add(newUser);
 
             var values = new Dictionary<string, string>
                 {

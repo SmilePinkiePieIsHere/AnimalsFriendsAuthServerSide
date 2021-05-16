@@ -26,7 +26,7 @@ namespace AnimalsFriends.Configuration
             context.Result = result;
             if (!string.IsNullOrEmpty(context.UserName))
             {
-                User user = _userRepository.GetUsers().Where(a => a.UserName == context.UserName).FirstOrDefault();
+                User user = _userRepository.GetAll().Where(a => a.UserName == context.UserName).FirstOrDefault();
                 if (user == null)
                 {
                     return;

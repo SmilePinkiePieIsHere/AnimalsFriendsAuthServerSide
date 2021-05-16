@@ -1,5 +1,4 @@
-﻿using IdentityServer4.Test;
-using AnimalsFriends.Interfaces.Repositories;
+﻿using AnimalsFriends.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -14,21 +13,26 @@ namespace AnimalsFriends.Repositories
         public UserRepository(AnimalsFriendsContext context)
         {
             _context = context;
+
+            //_context.Database.EnsureCreated();
+            //_context.SaveChanges();
+
+            //AnimalsFriendsSeedDB.SeedUsers(context);
         }
 
-        public void AddUser(User user)
+        public List<User> GetAll()
         {
-            _context.Users.Add(user);
+            return _context.Users.ToList();
         }
 
-        public User GetUserById(string id)
+        public User Get(string id)
         {
             return _context.Users.Where(a => a.Id == id).FirstOrDefault();
         }
 
-        public List<User> GetUsers()
+        public void Add(User user)
         {
-            return _context.Users.ToList();
+            _context.Users.Add(user);
         }
     }
 }

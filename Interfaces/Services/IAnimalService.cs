@@ -8,14 +8,14 @@ namespace AnimalsFriends.Interfaces.Services
     {
         List<Animal> GetAll(AnimalQueryParameters queryParameters);
 
-        Animal GetAnimal(int id);
+        Animal Get(int id);
 
-        void AddAnimal(Animal animal);
+        void Add(Animal animal);
 
-        void UpdateAnimal(Animal animal);
+        void Update(Animal animal);
 
-        void DeleteAnimal(Animal animal);
+        void Delete(Animal animal);
 
-        Animal FindAnimal(int id);
+        Animal Find(int id);
     }
 }
