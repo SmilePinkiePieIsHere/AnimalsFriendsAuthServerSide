@@ -18,7 +18,9 @@ namespace AnimalsFriends.Services
             _animalRepository = animalRepository;
             _context = context;
             
-            //context.Database.EnsureCreated();
+            //_context.Database.EnsureCreated();
+            //_context.SaveChanges();
+
             //AnimalsFriendsSeedDB.SeedAnimals(context);            
         }
 
@@ -41,9 +43,12 @@ namespace AnimalsFriends.Services
                 animals = animals.Where(a => a.Species.ToString().ToLower() == queryParameters.Species.ToLower());
             }
 
-            animals = animals
+            if (animals.Count() > 0)
+            {
+                animals = animals
                .Skip(queryParameters.Size * (queryParameters.Page - 1))
                .Take(queryParameters.Size);
+            }            
           
             return  animals.ToList();
         }

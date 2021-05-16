@@ -42,7 +42,7 @@ namespace AnimalsFriends.Controllers
         public ActionResult AddAnimal([FromBody] Animal animal)
         {
             _animalService.AddAnimal(animal);
-           var test = CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
+            var test = CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
             return Ok(animal);
         }
 

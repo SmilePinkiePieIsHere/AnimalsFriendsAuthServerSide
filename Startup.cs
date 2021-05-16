@@ -101,13 +101,13 @@ namespace AnimalsFriends
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication();
-
-            app.UseAuthorization();
+            app.UseAuthentication();           
 
             app.Map("/api/identity", identityServerApp => identityServerApp.UseIdentityServer());
 
-            app.UseRouting();        
+            app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
