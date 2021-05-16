@@ -23,10 +23,10 @@ namespace AnimalsFriends.Services
             _userRepository = userRepository;
             _context = context;
 
-            _context.Database.EnsureCreated();
+            //_context.Database.EnsureCreated();
             //_context.SaveChanges();
 
-            AnimalsFriendsSeedDB.SeedUsers(context);
+            //AnimalsFriendsSeedDB.SeedUsers(context);
         }
 
         public async Task<OWinResponseToken> Register(User user)
