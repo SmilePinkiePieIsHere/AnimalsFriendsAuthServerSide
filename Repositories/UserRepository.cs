@@ -9,29 +9,26 @@ namespace AnimalsFriends.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        static List<User> users = new List<User>
+        private readonly AnimalsFriendsContext _context;
+
+        public UserRepository(AnimalsFriendsContext context)
         {
-             //new TestUser
-             // {
-             //     SubjectId = "a9ea0f25-b964-409f-bcce-c92326624921",
-             //     Username = "user",
-             //     Password = "user123",
-             // }
-        };
+            _context = context;
+        }
 
         public void AddUser(User user)
         {
-            users.Add(user);
+            _context.Users.Add(user);
         }
 
         public User GetUserById(string id)
         {
-            return users.Where(a => a.Id == id).FirstOrDefault();
+            return _context.Users.Where(a => a.Id == id).FirstOrDefault();
         }
 
         public List<User> GetUsers()
         {
-            return users;
+            return _context.Users.ToList();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace AnimalsFriends.Models
         public BlogCategory Category { get; set; }
 
         //Author
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
         public DateTime PublishedOn { get; set; }
 
@@ -30,7 +30,7 @@ namespace AnimalsFriends.Models
         public DateTime? EndDate { get; set; }
 
         //For Posts
-        public int? AnimalId { get; set; }
+        public Guid? AnimalId { get; set; }
 
         public virtual User User { get; set; }
 
