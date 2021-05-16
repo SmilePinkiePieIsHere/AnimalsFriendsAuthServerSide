@@ -33,3 +33,4 @@ obj/Debug/netcoreapp3.0/AnimalsFriends.assets.cache
 *.txt
 *.pdb
 *.pdb
+bin/Debug/netcoreapp3.0/AnimalsFriends.deps.json

@@ -18,7 +18,11 @@ namespace AnimalsFriends.Services
             _animalRepository = animalRepository;
             _context = context;
 
-            _context.Database.EnsureCreated();
+            //_context.Database.EnsureCreated();
+
+            context.Database.EnsureCreated();
+            AnimalsFriendsSeedDB.Seed(context);
+            context.SaveChanges();
         }
 
         public List<Animal> GetAll(AnimalQueryParameters queryParameters)

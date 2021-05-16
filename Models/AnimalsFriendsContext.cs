@@ -43,7 +43,7 @@ namespace AnimalsFriends.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Posts_Animals");
             });
-            
+
             //modelBuilder.Seed();
         }
 

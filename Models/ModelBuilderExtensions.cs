@@ -24,8 +24,7 @@ namespace AnimalsFriends.Models
                 new Animal { Id = 7, UserId = 2, Name = "Сняг", Gender = Helpers.Classes.Gender.Male, CurrentStatus = Helpers.Classes.AnimalStatus.Adopted, Description = "Сняг е на около 8 месеца, кротък и поспалив. Търси своите хора!", Species = Helpers.Classes.AnimalSpecies.Dog, ProfileImg = ConvertImageToBase64("\\Resources\\images\\thumbnails\\Snqg.jpg") },
                 new Animal { Id = 8, UserId = 2, Name = "Томи", Gender = Helpers.Classes.Gender.Male, CurrentStatus = Helpers.Classes.AnimalStatus.Adopted, Description = "Томи вече се привиква на новия си начин на живот - заобиколен от своите любящи нови стопани!", Species = Helpers.Classes.AnimalSpecies.Dog, ProfileImg = ConvertImageToBase64("\\Resources\\images\\thumbnails\\Tommy.jpg") },
                 new Animal { Id = 9, UserId = 2, Name = "Бистра", Gender = Helpers.Classes.Gender.Female, CurrentStatus = Helpers.Classes.AnimalStatus.InMedicalCare, Description = "Малката Бистра беше намерена със счупен крак (най-вероятно блъсната от кола), но вече се възстановява!", Species = Helpers.Classes.AnimalSpecies.Dog, ProfileImg = ConvertImageToBase64("\\Resources\\images\\thumbnails\\Bistra.jpg") });
-
-
+           
             //modelBuilder.Entity<User>().HasData(
             //    new User { Id = 1, Email = "danitza@example.com" },
             //    new User { Id = 2, Email = "niya@example.com" });

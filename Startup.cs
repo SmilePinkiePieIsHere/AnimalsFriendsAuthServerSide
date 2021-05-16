@@ -46,7 +46,7 @@ namespace AnimalsFriends
             //services.AddDbContext<AnimalsFriendsContext>(options => options.UseInMemoryDatabase("AnimalsFriends"));
             //Configuration.GetConnectionString("DefaultConnection"))
             var connectionString = this.Configuration.GetSection("ConnectionStrings").GetSection("AnimalsFriendsDB").Value;
-            services.AddDbContext<AnimalsFriendsContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<AnimalsFriendsContext>(options => options.UseSqlServer(connectionString));           
 
             services.AddControllers()
             // Below JSON options are the default for ASP NET CORE 3.1

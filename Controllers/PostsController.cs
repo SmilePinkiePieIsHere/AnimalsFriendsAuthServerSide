@@ -14,7 +14,7 @@ namespace AnimalsFriends.Controllers
         {
             _context = context;
 
-            _context.Database.EnsureCreated();
+            //_context.Database.EnsureCreated();
         }
 
         [HttpGet]
