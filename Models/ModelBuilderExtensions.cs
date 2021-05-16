@@ -28,6 +28,7 @@ namespace AnimalsFriends.Models
                 new Post { Id = Guid.Parse("03e77fe4-dcdd-49ef-ae03-338c219ca12c"), UserId = "4f6183ea-100e-4e78-ad26-14b7de22e571", AnimalId = Guid.Parse("1189ab7c-c7cc-4390-ac5a-35c1d7564ce4"), Title = "Томи има нужда от лечение!", Category = Helpers.Classes.BlogCategory.News },
                 new Post { Id = Guid.Parse("a7162e74-3e44-45cd-990a-aa4202026851"), UserId = "4f6183ea-100e-4e78-ad26-14b7de22e571", Title = "Ване се въстановява!", Category = Helpers.Classes.BlogCategory.Causes },
                 new Post { Id = Guid.Parse("b0ffb191-f1c1-4af5-bb37-b2a6ac49253f"), UserId = "4f6183ea-100e-4e78-ad26-14b7de22e571", Title = "Коледна къщичка!", Category = Helpers.Classes.BlogCategory.Causes });
+            
         }
 
         private static string ConvertImageToBase64(string imgUrl)

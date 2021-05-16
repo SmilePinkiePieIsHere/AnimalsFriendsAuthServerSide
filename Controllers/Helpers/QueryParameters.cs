@@ -13,7 +13,7 @@ namespace AnimalsFriends.Helpers
         private int _size = 50;
 
         [JsonProperty("page")]
-        public int Page { get; set; }
+        public int Page { get; set; } = 1;
 
         [JsonProperty("size")]
         public int Size

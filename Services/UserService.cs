@@ -24,10 +24,12 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Register(User user)
         {
-            User newUser = user;
-            newUser.Id = Guid.NewGuid().ToString();           
+            //User newUser = user;
+            //newUser.UserName = "test";
+            //newUser.PasswordHash = "killme";
+            //newUser.Id = Guid.NewGuid().ToString();           
 
-            _userRepository.Add(newUser);
+            _userRepository.Add(user);
 
             var values = new Dictionary<string, string>
                 {
@@ -35,8 +37,8 @@ namespace AnimalsFriends.Services
                     { "client_secret", "test" },
                     { "scope", "AnimalsFriends offline_access" },
                     { "grant_type", "password" },
-                    { "username", newUser.UserName },
-                    { "password", newUser.PasswordHash }
+                    { "username", user.UserName },
+                    { "password", user.PasswordHash }
                 };
 
             var content = new FormUrlEncodedContent(values);
