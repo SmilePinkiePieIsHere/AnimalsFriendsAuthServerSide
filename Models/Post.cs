@@ -20,7 +20,7 @@ namespace AnimalsFriends.Models
         public BlogCategory Category { get; set; }
 
         //Author
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public DateTime PublishedOn { get; set; }
 

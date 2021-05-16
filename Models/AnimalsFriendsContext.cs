@@ -32,7 +32,7 @@ namespace AnimalsFriends.Models
             {
                 entity.HasOne(d => d.Animal)
                     .WithMany(p => p.Post)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.AnimalId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Posts_Animals");
             });
