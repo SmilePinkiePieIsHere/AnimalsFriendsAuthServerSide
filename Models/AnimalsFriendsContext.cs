@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnimalsFriends.Models
 {
@@ -15,9 +11,6 @@ namespace AnimalsFriends.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<User>().HasMany(u => u.Posts).WithOne(a => a.User).HasForeignKey(a => a.UserId);
-            //modelBuilder.Entity<User>().HasMany(u => u.Animals);
-            
             modelBuilder.Entity<Animal>(entity =>
             {
                 entity.HasOne(d => d.User)
@@ -51,8 +44,6 @@ namespace AnimalsFriends.Models
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Post> Posts { get; set; }
-
-       
+        public DbSet<Post> Posts { get; set; }       
     }
 }

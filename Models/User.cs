@@ -21,6 +21,14 @@ namespace AnimalsFriends.Models
         [StringLength(256)]
         public string Password { get; set; }
 
+        [StringLength(50)]
+        public string FirstName { get; set; }
+
+        [StringLength(50)]
+        public string LastName { get; set; }
+
+        public bool IsAdmin { get; set; }
+
         [InverseProperty("User")]
         public virtual ICollection<Animal> Animal { get; set; }
 
