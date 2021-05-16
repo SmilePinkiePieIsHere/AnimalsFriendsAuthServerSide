@@ -19,7 +19,7 @@ namespace AnimalsFriends.Services
             _context = context;
             
             //context.Database.EnsureCreated();
-            AnimalsFriendsSeedDB.SeedAnimals(context);            
+            //AnimalsFriendsSeedDB.SeedAnimals(context);            
         }
 
         public List<Animal> GetAll(AnimalQueryParameters queryParameters)

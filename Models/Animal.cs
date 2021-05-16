@@ -1,19 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace AnimalsFriends.Models
 {
     public class Animal
     {
-        public Animal()
-        {
-            Post = new HashSet<Post>();          
-        }
-
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [StringLength(50)]
         public string Name { get; set; }
@@ -31,13 +25,9 @@ namespace AnimalsFriends.Models
         public string ProfileImg { get; set; }
 
         public int UserId { get; set; }
-
-        //[JsonIgnore]
-        [ForeignKey(nameof(UserId))]
-        [InverseProperty("Animal")]
+        
         public virtual User User { get; set; }
 
-        [InverseProperty("Animal")]
-        public virtual ICollection<Post> Post { get; set; }
+        public virtual ICollection<Post> Post { get; set; } = new HashSet<Post>();  
     }
 }

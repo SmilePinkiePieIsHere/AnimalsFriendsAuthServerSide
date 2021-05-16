@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AnimalsFriends.Models;
 
 namespace AnimalsFriends.Configuration
 {
@@ -25,20 +26,20 @@ namespace AnimalsFriends.Configuration
             context.Result = result;
             if (!string.IsNullOrEmpty(context.UserName))
             {
-                TestUser user = _userRepository.GetUsers().Where(a => a.Username == context.UserName).FirstOrDefault();
+                User user = _userRepository.GetUsers().Where(a => a.UserName == context.UserName).FirstOrDefault();
                 if (user == null)
                 {
                     return;
                 }
                 else
                 {
-                    if (context.Password == user.Password)
+                    if (context.Password == user.PasswordHash)
                     {
                         var claims = new List<Claim>
                         {
-                            new Claim("username", user.Username, ClaimValueTypes.String),
+                            new Claim("username", user.UserName, ClaimValueTypes.String),
                         };
-                        result = new GrantValidationResult(user.SubjectId, context.Request.GrantType, claims);
+                        result = new GrantValidationResult(user.Id, context.Request.GrantType, claims);
                     }
                     else
                     {

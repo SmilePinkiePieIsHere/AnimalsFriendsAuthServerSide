@@ -3,12 +3,13 @@ using AnimalsFriends.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using AnimalsFriends.Models;
 
 namespace AnimalsFriends.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        static List<TestUser> users = new List<TestUser>
+        static List<User> users = new List<User>
         {
              //new TestUser
              // {
@@ -18,17 +19,17 @@ namespace AnimalsFriends.Repositories
              // }
         };
 
-        public void AddUser(TestUser user)
+        public void AddUser(User user)
         {
             users.Add(user);
         }
 
-        public TestUser GetUserById(string id)
+        public User GetUserById(string id)
         {
-            return users.Where(a => a.SubjectId == id).FirstOrDefault();
+            return users.Where(a => a.Id == id).FirstOrDefault();
         }
 
-        public List<TestUser> GetUsers()
+        public List<User> GetUsers()
         {
             return users;
         }

@@ -1,14 +1,15 @@
-﻿using IdentityServer4.Test;
+﻿using AnimalsFriends.Models;
+using IdentityServer4.Test;
 using System.Collections.Generic;
 
 namespace AnimalsFriends.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        void AddUser(TestUser user);
+        void AddUser(User user);
 
-        List<TestUser> GetUsers();
+        List<User> GetUsers();
 
-        TestUser GetUserById(string id);
+        User GetUserById(string id);
     }
 }

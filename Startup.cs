@@ -59,8 +59,8 @@ namespace AnimalsFriends
             });
 
             services.AddIdentityServer()
-                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
-                .AddTestUsers(new UserRepository().GetUsers())
+                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())               
+                //.AddTestUsers(new UserRepository().GetUsers())
                 .AddInMemoryClients(InMemoryConfig.GetClients())
                 .AddDeveloperSigningCredential();
 
@@ -103,11 +103,11 @@ namespace AnimalsFriends
 
             app.UseAuthentication();
 
+            app.UseAuthorization();
+
             app.Map("/api/identity", identityServerApp => identityServerApp.UseIdentityServer());
 
-            app.UseRouting();            
-
-            app.UseAuthorization();
+            app.UseRouting();        
 
             app.UseEndpoints(endpoints =>
             {

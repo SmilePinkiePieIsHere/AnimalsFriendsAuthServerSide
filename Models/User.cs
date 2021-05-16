@@ -1,26 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnimalsFriends.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public User()
-        {
-            Animal = new HashSet<Animal>();
-            Post = new HashSet<Post>();
-        }
-
-        [Key]
-        public int Id { get; set; }
-
-        [StringLength(50)]
-        public string Username { get; set; }
-
-        [StringLength(256)]
-        public string Password { get; set; }
-
         [StringLength(50)]
         public string FirstName { get; set; }
 
@@ -29,10 +14,8 @@ namespace AnimalsFriends.Models
 
         public bool IsAdmin { get; set; }
 
-        [InverseProperty("User")]
-        public virtual ICollection<Animal> Animal { get; set; }
+        public virtual ICollection<Animal> Animal { get; set; } = new HashSet<Animal>();
 
-        [InverseProperty("User")]
-        public virtual ICollection<Post> Post { get; set; }
+        public virtual ICollection<Post> Post { get; set; } = new HashSet<Post>();
     }
 }

@@ -7,8 +7,8 @@ namespace AnimalsFriends.Models
         public static void SeedUsers(AnimalsFriendsContext context)
         {
             context.Users.AddRange(
-                new User { Username = "danitza@example.com", Password = "12345", FirstName = "Даница", LastName = "Влахова", IsAdmin = true},
-                new User { Username = "jenny@example.com", Password = "123456", FirstName = "Джейлян", LastName = "Адемова", IsAdmin = false });
+                new User { Email = "danitza@example.com", PasswordHash = "12345", FirstName = "Даница", LastName = "Влахова", IsAdmin = true},
+                new User { Email = "jenny@example.com", PasswordHash = "123456", FirstName = "Джейлян", LastName = "Адемова", IsAdmin = false });
             context.SaveChanges();
         }
 

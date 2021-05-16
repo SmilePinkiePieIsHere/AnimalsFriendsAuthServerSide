@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace AnimalsFriends.Services
 {
@@ -16,70 +17,58 @@ namespace AnimalsFriends.Services
         private readonly IUserRepository _userRepository;
         private static readonly HttpClient client = new HttpClient();
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, UserManager<User> manager)
         {
             _userRepository = userRepository;
         }
 
         public async Task<OWinResponseToken> Register(User user)
         {
-            //TestUser newUser = new TestUser
+            User newUser = user;
+            newUser.Id = Guid.NewGuid().ToString();
+            //User newUser = new User
             //{
-            //    Username = user.Username,
-            //    Password = user.Password,
-            //    SubjectId = Guid.NewGuid().ToString()
+            //    UserName = user.UserName,
+            //    PasswordHash = user.PasswordHash,
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName//,
+            //    //SubjectId = Guid.NewGuid().ToString()
             //};
-
-            ApplicationUser newUser = new ApplicationUser
-            {
-                Username = user.Username,
-                Password = user.Password,
-                SubjectId = Guid.NewGuid().ToString()
-            };
 
             _userRepository.AddUser(newUser);
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            var values = new Dictionary<string, string>
+                {
+                    { "client_id", "testClient" },
+                    { "client_secret", "test" },
+                    { "scope", "AnimalsFriends offline_access" },
+                    { "grant_type", "password" },
+                    { "username", newUser.UserName },
+                    { "password", newUser.PasswordHash }
+                };
 
-            if (!result.Succeeded)
+            var content = new FormUrlEncodedContent(values);
+
+            var response = await client.PostAsync("https://localhost:44337/api/identity/connect/token", content);
+
+            OWinResponseToken data = new OWinResponseToken();
+
+            if (response.IsSuccessStatusCode)
             {
-                return GetErrorResult(result);
+                var responseString = JObject.Parse(await response.Content.ReadAsStringAsync());
+                var res = JsonConvert.DeserializeObject<dynamic>(responseString.ToString());
+
+                data.AccessToken = res.access_token;
+                data.ExpirationInSeconds = res.expires_in;
+                data.TokenType = res.token_type;
+                data.RefreshToken = res.refresh_token;
+            }
+            else
+            {
+                data.ErrorDescription = "Something bad happens.";
             }
 
-            return Ok();
-
-            //var values = new Dictionary<string, string>
-            //    {
-            //        { "client_id", "testClient" },
-            //        { "client_secret", "test" },
-            //        { "scope", "AnimalsFriends offline_access" },
-            //        { "grant_type", "password" },
-            //        { "username", newUser.Username },
-            //        { "password", newUser.Password }
-            //    };
-
-            //var content = new FormUrlEncodedContent(values);
-
-            //var response = await client.PostAsync("https://localhost:44337/api/identity/connect/token", content);
-
-            //OWinResponseToken data = new OWinResponseToken();
-
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var responseString = JObject.Parse(await response.Content.ReadAsStringAsync());
-            //    var res = JsonConvert.DeserializeObject<dynamic>(responseString.ToString());
-
-            //    data.AccessToken = res.access_token;
-            //    data.ExpirationInSeconds = res.expires_in;
-            //    data.TokenType = res.token_type;
-            //    data.RefreshToken = res.refresh_token;
-            //}
-            //else
-            //{
-            //    data.ErrorDescription = "Something bad happens.";
-            //}
-
-            //return data;
+            return data;
         }
 
         public async Task<OWinResponseToken> Login(User user)
@@ -90,8 +79,8 @@ namespace AnimalsFriends.Services
                     { "client_secret", "test" },
                     { "scope", "AnimalsFriends offline_access" },
                     { "grant_type", "password" },
-                    { "username", user.Username },
-                    { "password", user.Password }
+                    { "username", user.UserName },
+                    { "password", user.PasswordHash }
                 };
 
             var content = new FormUrlEncodedContent(values);

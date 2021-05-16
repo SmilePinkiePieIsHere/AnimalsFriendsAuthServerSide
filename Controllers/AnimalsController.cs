@@ -47,9 +47,9 @@ namespace AnimalsFriends.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateAnimal([FromRoute] int id, [FromBody] Animal animal)
+        public ActionResult UpdateAnimal([FromRoute] string id, [FromBody] Animal animal)
         {
-            if (id != animal.Id)
+            if (id != animal.Id.ToString())
             {
                 return BadRequest();
             }
