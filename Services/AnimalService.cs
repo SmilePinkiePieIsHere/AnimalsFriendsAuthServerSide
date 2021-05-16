@@ -12,7 +12,7 @@ namespace AnimalsFriends.Services
     {
         private readonly IAnimalRepository _animalRepository;
 
-        public AnimalService(IAnimalRepository animalRepository, AnimalsFriendsContext context)
+        public AnimalService(IAnimalRepository animalRepository)
         {
             _animalRepository = animalRepository;
         }

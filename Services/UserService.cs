@@ -17,7 +17,7 @@ namespace AnimalsFriends.Services
         private readonly IUserRepository _userRepository;
         private static readonly HttpClient client = new HttpClient();
 
-        public UserService(IUserRepository userRepository, AnimalsFriendsContext context)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
