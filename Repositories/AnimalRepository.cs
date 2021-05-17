@@ -5,6 +5,7 @@ using AnimalsFriends.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace AnimalsFriends.Repositories
 {
@@ -22,7 +23,7 @@ namespace AnimalsFriends.Repositories
             return _context.Animals;
         }
 
-        public Animal Get(int id)
+        public Animal Get(Guid id)
         {
             return _context.Animals.Find(id);
         }
@@ -45,7 +46,7 @@ namespace AnimalsFriends.Repositories
             _context.SaveChanges();
         }
 
-        public Animal Find(int id)
+        public Animal Find(Guid id)
         {
             return _context.Animals.Find(id);
         }

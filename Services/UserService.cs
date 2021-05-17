@@ -132,7 +132,19 @@ namespace AnimalsFriends.Services
             return data;
         }
 
-        static byte[] GenerateHash(byte[] password, byte[] salt, int iterations, int length)
+        private byte[] GenerateSalt(int length)
+        {
+            var bytes = new byte[length];
+
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(bytes);
+            }
+
+            return bytes;
+        }
+
+        private byte[] GenerateHash(byte[] password, byte[] salt, int iterations, int length)
         {
             using (var deriveBytes = new Rfc2898DeriveBytes(password, salt, iterations))
             {

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using AnimalsFriends.Interfaces.Services;
+using System;
 
 namespace AnimalsFriends.Services
 {
@@ -46,7 +47,7 @@ namespace AnimalsFriends.Services
             return  animals.ToList();
         }
 
-        public Animal Get(int id)
+        public Animal Get(Guid id)
         {
             return _animalRepository.Get(id);
         }
@@ -66,7 +67,7 @@ namespace AnimalsFriends.Services
             _animalRepository.Delete(animal);
         }
 
-        public Animal Find(int id)
+        public Animal Find(Guid id)
         {
             return _animalRepository.Find(id);
         }

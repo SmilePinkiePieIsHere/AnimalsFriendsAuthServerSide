@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using System;
 
 namespace AnimalsFriends.Controllers
 {
@@ -28,9 +29,10 @@ namespace AnimalsFriends.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public ActionResult GetAnimal(int id)
+        public ActionResult GetAnimal(string id)
         {
-            var animal = _animalService.Get(id);
+            var test = Guid.Parse(id);
+            var animal = _animalService.Get(Guid.Parse(id));
             if (animal == null)
             {
                 return NotFound();
@@ -74,9 +76,9 @@ namespace AnimalsFriends.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult RemoveAnimal([FromRoute] int id)
+        public ActionResult RemoveAnimal([FromRoute] string id)
         {
-            var animal = _animalService.Find(id);
+            var animal = _animalService.Find(Guid.Parse(id));
 
             if (animal == null)
             {

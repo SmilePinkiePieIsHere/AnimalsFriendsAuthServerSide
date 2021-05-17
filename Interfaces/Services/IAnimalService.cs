@@ -1,5 +1,6 @@
 ﻿using AnimalsFriends.Helpers;
 using AnimalsFriends.Models;
+using System;
 using System.Collections.Generic;
 
 namespace AnimalsFriends.Interfaces.Services
@@ -8,7 +9,7 @@ namespace AnimalsFriends.Interfaces.Services
     {
         List<Animal> GetAll(AnimalQueryParameters queryParameters);
 
-        Animal Get(int id);
+        Animal Get(Guid id);
 
         void Add(Animal animal);
 
@@ -16,6 +17,6 @@ namespace AnimalsFriends.Interfaces.Services
 
         void Delete(Animal animal);
 
-        Animal Find(int id);
+        Animal Find(Guid id);
     }
 }
