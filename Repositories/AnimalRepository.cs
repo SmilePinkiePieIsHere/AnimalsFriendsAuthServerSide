@@ -15,11 +15,6 @@ namespace AnimalsFriends.Repositories
         public AnimalRepository(AnimalsFriendsContext context)
         {
             _context = context;
-
-            //_context.Database.EnsureCreated();
-            //_context.SaveChanges();
-
-            //AnimalsFriendsSeedDB.SeedAnimals(context);  
         }
 
         public IQueryable<Animal> GetAll()

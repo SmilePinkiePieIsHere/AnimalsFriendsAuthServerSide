@@ -13,11 +13,6 @@ namespace AnimalsFriends.Repositories
         public UserRepository(AnimalsFriendsContext context)
         {
             _context = context;
-
-            //_context.Database.EnsureCreated();
-            //_context.SaveChanges();
-
-            //AnimalsFriendsSeedDB.SeedUsers(context);
         }
 
         public List<User> GetAll()

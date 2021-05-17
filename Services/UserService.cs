@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Cryptography;
 
 namespace AnimalsFriends.Services
 {
@@ -129,6 +130,14 @@ namespace AnimalsFriends.Services
             }
 
             return data;
+        }
+
+        static byte[] GenerateHash(byte[] password, byte[] salt, int iterations, int length)
+        {
+            using (var deriveBytes = new Rfc2898DeriveBytes(password, salt, iterations))
+            {
+                return deriveBytes.GetBytes(length);
+            }
         }
     }
 }

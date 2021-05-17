@@ -8,8 +8,8 @@ namespace AnimalsFriends.Models
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
-                new User { Id = "4f6183ea-100e-4e78-ad26-14b7de22e571", Email = "danitza@example.com", PasswordHash = "12345", FirstName = "Даница", LastName = "Влахова", IsAdmin = true },
-                new User { Id = "5f6183ea-100e-4e78-ad26-14b7de22e571", Email = "jenny@example.com", PasswordHash = "123456", FirstName = "Джейлян", LastName = "Адемова", IsAdmin = false });
+                new User { Id = "4f6183ea-100e-4e78-ad26-14b7de22e571", Email = "danitza@example.com", UserName= "dani", PasswordHash = "$2y$10$7gPBzL2/Kb3cu0ru8qkl1ebRQUlSO/8J6RMyHbXCxEFbhWdN8K6RW", FirstName = "Даница", LastName = "Влахова", IsAdmin = true }, //12345
+                new User { Id = "5f6183ea-100e-4e78-ad26-14b7de22e571", Email = "jenny@example.com", UserName = "jenny", PasswordHash = "$2y$10$2i7EtMm9ADEajiZaTlfs.uSHjASZ45l/AjmO0ArZlPuSOZJs24cBy", FirstName = "Джейлян", LastName = "Адемова", IsAdmin = false }); //123456
 
             modelBuilder.Entity<Animal>().HasData(
                new Animal { Id = Guid.Parse("2a6183ea-100e-4e78-ad26-14b7de22e571"), UserId = "4f6183ea-100e-4e78-ad26-14b7de22e571", Name = "Бонд", Gender = Helpers.Classes.Gender.Male, CurrentStatus = Helpers.Classes.AnimalStatus.Adopted, Description = "Бонд - покорителят на женски сърца намери своята нова стопанка!", Species = Helpers.Classes.AnimalSpecies.Cat, ProfileImg = ConvertImageToBase64("\\Resources\\images\\thumbnails\\Bond.jpg") },

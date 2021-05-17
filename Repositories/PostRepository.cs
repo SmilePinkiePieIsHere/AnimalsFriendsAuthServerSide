@@ -12,11 +12,6 @@ namespace PostsFriends.Repositories
         public PostRepository(AnimalsFriendsContext context)
         {
             _context = context;
-
-            //_context.Database.EnsureCreated();
-            //_context.SaveChanges();
-
-            //PostsFriendsSeedDB.SeedPosts(context);  
         }
 
         public IQueryable<Post> GetAll()
