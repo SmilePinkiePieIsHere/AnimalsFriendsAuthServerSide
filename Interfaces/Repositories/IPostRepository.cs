@@ -1,5 +1,6 @@
 ﻿
 using AnimalsFriends.Models;
+using System;
 using System.Linq;
 
 namespace AnimalsFriends.Interfaces.Repositories
@@ -8,7 +9,7 @@ namespace AnimalsFriends.Interfaces.Repositories
     {
         IQueryable<Post> GetAll();
 
-        Post Get(int id);
+        Post Get(Guid id);
 
         void Add(Post post);
 
@@ -16,6 +17,6 @@ namespace AnimalsFriends.Interfaces.Repositories
 
         void Delete(Post post);
 
-        Post Find(int id);
+        Post Find(Guid id);
     }
 }

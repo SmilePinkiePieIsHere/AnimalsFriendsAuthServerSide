@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using AnimalsFriends.Interfaces.Repositories;
 using System.Linq;
+using System;
 
 namespace PostsFriends.Repositories
 {
@@ -19,7 +20,7 @@ namespace PostsFriends.Repositories
             return _context.Posts;
         }
 
-        public Post Get(int id)
+        public Post Get(Guid id)
         {
             return _context.Posts.Find(id);
         }
@@ -42,7 +43,7 @@ namespace PostsFriends.Repositories
             _context.SaveChanges();
         }
 
-        public Post Find(int id)
+        public Post Find(Guid id)
         {
             return _context.Posts.Find(id);
         }

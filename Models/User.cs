@@ -6,6 +6,9 @@ namespace AnimalsFriends.Models
 {
     public class User : IdentityUser
     {
+        //[IsUnique = true]
+        override public string  UserName { get; set; }
+
         [StringLength(50)]
         public string FirstName { get; set; }
 
@@ -13,6 +16,8 @@ namespace AnimalsFriends.Models
         public string LastName { get; set; }
 
         public bool IsAdmin { get; set; }
+        
+        public byte[] PasswordSalt { get; set; }
 
         public virtual ICollection<Animal> Animal { get; set; } = new HashSet<Animal>();
 

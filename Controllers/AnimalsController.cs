@@ -4,7 +4,6 @@ using AnimalsFriends.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using System;
 
 namespace AnimalsFriends.Controllers
@@ -31,7 +30,6 @@ namespace AnimalsFriends.Controllers
         [HttpGet("{id}")]
         public ActionResult GetAnimal(string id)
         {
-            var test = Guid.Parse(id);
             var animal = _animalService.Get(Guid.Parse(id));
             if (animal == null)
             {
@@ -44,7 +42,7 @@ namespace AnimalsFriends.Controllers
         public ActionResult AddAnimal([FromBody] Animal animal)
         {
             _animalService.Add(animal);
-            var test = CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
+            CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
             return Ok(animal);
         }
 
@@ -62,17 +60,10 @@ namespace AnimalsFriends.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                //if (_context.Animals.Find(id) == null)
-                //{
-                //    return NotFound();
-                //}
-
                 return NotFound();
-
-                throw;
             }
 
-            return Ok(animal); /// NoContent();
+            return Ok(animal);
         }
 
         [HttpDelete("{id}")]

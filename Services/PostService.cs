@@ -2,6 +2,7 @@
 using AnimalsFriends.Interfaces.Repositories;
 using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,27 +36,27 @@ namespace AnimalsFriends.Services
             return posts.ToList();
         }
 
-        public Post Get(int id)
+        public Post Get(Guid id)
         {
             return _postRepository.Get(id);
         }
 
-        public void Add(Post animal)
+        public void Add(Post post)
         {
-            _postRepository.Add(animal);
+            _postRepository.Add(post);
         }
 
-        public void Update(Post animal)
+        public void Update(Post post)
         {
-            _postRepository.Update(animal);
+            _postRepository.Update(post);
         }
 
-        public void Delete(Post animal)
+        public void Delete(Post post)
         {
-            _postRepository.Delete(animal);
+            _postRepository.Delete(post);
         }
 
-        public Post Find(int id)
+        public Post Find(Guid id)
         {
             return _postRepository.Find(id);
         }

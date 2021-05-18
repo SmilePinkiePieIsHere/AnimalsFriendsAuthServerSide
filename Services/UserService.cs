@@ -1,5 +1,4 @@
-﻿using IdentityServer4.Test;
-using AnimalsFriends.Interfaces.Repositories;
+﻿using AnimalsFriends.Interfaces.Repositories;
 using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Newtonsoft.Json;
@@ -8,8 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Cryptography;
+using System.Text;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace AnimalsFriends.Services
 {
@@ -25,6 +25,8 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Register(User user)
         {
+            var passwordSalt = GenerateSalt();           
+            user.PasswordHash = GenerateHash(user.PasswordHash, passwordSalt);
             _userRepository.Add(user);
 
             var values = new Dictionary<string, string>
@@ -63,6 +65,17 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Login(User user)
         {
+            var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
+            var passwordSalt = searchedUser.PasswordSalt;
+            user.PasswordHash = GenerateHash(user.PasswordHash, passwordSalt);
+
+            OWinResponseToken data = new OWinResponseToken();
+            if (searchedUser.PasswordHash != user.PasswordHash)
+            {
+                data.ErrorDescription = "Password is uncorrect.";
+                return data;
+            }
+
             var values = new Dictionary<string, string>
                 {
                     { "client_id", "testClient" },
@@ -75,9 +88,7 @@ namespace AnimalsFriends.Services
 
             var content = new FormUrlEncodedContent(values);
 
-            var response = await client.PostAsync("https://localhost:44337/api/identity/connect/token", content);
-
-            OWinResponseToken data = new OWinResponseToken();
+            var response = await client.PostAsync("https://localhost:44337/api/identity/connect/token", content);            
 
             if (response.IsSuccessStatusCode)
             {
@@ -132,24 +143,25 @@ namespace AnimalsFriends.Services
             return data;
         }
 
-        private byte[] GenerateSalt(int length)
+        private byte[] GenerateSalt()
         {
-            var bytes = new byte[length];
-
-            using (var rng = new RNGCryptoServiceProvider())
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
             {
-                rng.GetBytes(bytes);
+                rng.GetBytes(salt);
             }
 
-            return bytes;
+            return salt;
         }
 
-        private byte[] GenerateHash(byte[] password, byte[] salt, int iterations, int length)
+        private string GenerateHash(string password, byte[] passwordSalt)
         {
-            using (var deriveBytes = new Rfc2898DeriveBytes(password, salt, iterations))
-            {
-                return deriveBytes.GetBytes(length);
-            }
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                                   password: password,
+                                   salt: passwordSalt,
+                                   prf: KeyDerivationPrf.HMACSHA1,
+                                   iterationCount: 10000,
+                                   numBytesRequested: 256 / 8));
         }
     }
 }

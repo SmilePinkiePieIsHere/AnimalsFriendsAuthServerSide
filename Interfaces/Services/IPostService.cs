@@ -1,6 +1,7 @@
 ﻿
 using AnimalsFriends.Helpers;
 using AnimalsFriends.Models;
+using System;
 using System.Collections.Generic;
 
 namespace AnimalsFriends.Interfaces.Services
@@ -9,7 +10,7 @@ namespace AnimalsFriends.Interfaces.Services
     {
         List<Post> GetAll(PostQueryParameters queryParameters);
 
-        Post Get(int id);
+        Post Get(Guid id);
 
         void Add(Post post);
 
@@ -17,6 +18,6 @@ namespace AnimalsFriends.Interfaces.Services
 
         void Delete(Post post);
 
-        Post Find(int id);
+        Post Find(Guid id);
     }
 }

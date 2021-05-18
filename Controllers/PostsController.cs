@@ -3,6 +3,7 @@ using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace AnimalsFriends.Controllers
@@ -28,7 +29,7 @@ namespace AnimalsFriends.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public ActionResult GetAnimal(int id)
+        public ActionResult GetPost(Guid id)
         {
             var post = _postService.Get(id);
             if (post == null)

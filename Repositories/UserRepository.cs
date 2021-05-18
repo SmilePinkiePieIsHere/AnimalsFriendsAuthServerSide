@@ -23,7 +23,7 @@ namespace AnimalsFriends.Repositories
         public User Get(string id)
         {
             return _context.Users.Where(a => a.Id == id).FirstOrDefault();
-        }
+        }        
 
         public void Add(User user)
         {

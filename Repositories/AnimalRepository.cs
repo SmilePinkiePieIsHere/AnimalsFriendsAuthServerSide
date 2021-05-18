@@ -1,8 +1,5 @@
-﻿using IdentityServer4.Test;
-using AnimalsFriends.Configuration;
-using AnimalsFriends.Interfaces.Repositories;
+﻿using AnimalsFriends.Interfaces.Repositories;
 using AnimalsFriends.Models;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
