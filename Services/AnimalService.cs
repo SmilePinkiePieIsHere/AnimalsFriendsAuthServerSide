@@ -24,17 +24,17 @@ namespace AnimalsFriends.Services
 
             if (queryParameters.Status != null)
             {
-                animals = animals.Where(a => a.CurrentStatus.ToString().ToLower() == queryParameters.Status.ToLower());
+                animals = animals.Where(a => a.CurrentStatus.ToLower() == queryParameters.Status.ToLower());
             }
 
             if (queryParameters.Gender != null)
             {
-                animals = animals.Where(a => a.Gender.ToString().ToLower() == queryParameters.Gender.ToLower());
+                animals = animals.Where(a => a.Gender.ToLower() == queryParameters.Gender.ToLower());
             }
 
             if (queryParameters.Species != null)
             {
-                animals = animals.Where(a => a.Species.ToString().ToLower() == queryParameters.Species.ToLower());
+                animals = animals.Where(a => a.Species.ToLower() == queryParameters.Species.ToLower());
             }
 
             if (animals.Count() > 0)
@@ -42,9 +42,9 @@ namespace AnimalsFriends.Services
                 animals = animals
                .Skip(queryParameters.Size * (queryParameters.Page - 1))
                .Take(queryParameters.Size);
-            }            
-          
-            return  animals.ToList();
+            }
+
+            return animals.ToList();
         }
 
         public Animal Get(Guid id)

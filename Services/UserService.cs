@@ -65,16 +65,16 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Login(User user)
         {
-            var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
-            var passwordSalt = searchedUser.PasswordSalt;
-            user.PasswordHash = GenerateHash(user.PasswordHash, passwordSalt);
+            //var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
+            //var passwordSalt = searchedUser.PasswordSalt;
+            //user.PasswordHash = GenerateHash(user.PasswordHash, passwordSalt);
 
             OWinResponseToken data = new OWinResponseToken();
-            if (searchedUser.PasswordHash != user.PasswordHash)
-            {
-                data.ErrorDescription = "Password is uncorrect.";
-                return data;
-            }
+            //if (searchedUser.PasswordHash != user.PasswordHash)
+            //{
+            //    data.ErrorDescription = "Password is uncorrect.";
+            //    return data;
+            //}
 
             var values = new Dictionary<string, string>
                 {

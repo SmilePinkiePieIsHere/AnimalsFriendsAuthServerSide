@@ -17,7 +17,7 @@ namespace AnimalsFriends.Models
 
         public bool IsAdmin { get; set; }
         
-        public byte[] PasswordSalt { get; set; }
+       // public byte[] PasswordSalt { get; set; }
 
         public virtual ICollection<Animal> Animal { get; set; } = new HashSet<Animal>();
 
