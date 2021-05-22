@@ -35,3 +35,5 @@ bin/Debug/netcoreapp3.0/Microsoft.EntityFrameworkCore.dll
 bin/Debug/netcoreapp3.0/Microsoft.EntityFrameworkCore.Abstractions.dll
 bin/Debug/netcoreapp3.0/AnimalsFriends.pdb
 bin/Debug/netcoreapp3.0/AnimalsFriends.dll
+bin/Debug/netcoreapp3.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+bin/Debug/netcoreapp3.0/Microsoft.IdentityModel.Protocols.dll
