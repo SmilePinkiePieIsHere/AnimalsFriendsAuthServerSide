@@ -24,9 +24,9 @@ namespace AnimalsFriends.Services
         }
 
         public async Task<OWinResponseToken> Register(User user)
-        {
-            var passwordSalt = GenerateSalt();           
-            user.PasswordHash = GenerateHash(user.PasswordHash, passwordSalt);
+        {              
+            user.PasswordSalt = GenerateSalt();
+            user.PasswordHash = GenerateHash(user.PasswordHash, user.PasswordSalt);
             _userRepository.Add(user);
 
             var values = new Dictionary<string, string>
@@ -65,16 +65,15 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Login(User user)
         {
-            //var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
-            //var passwordSalt = searchedUser.PasswordSalt;
-            //user.PasswordHash = GenerateHash(user.PasswordHash, passwordSalt);
+            var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
+            user.PasswordHash = GenerateHash(user.PasswordHash, searchedUser.PasswordSalt);
 
             OWinResponseToken data = new OWinResponseToken();
-            //if (searchedUser.PasswordHash != user.PasswordHash)
-            //{
-            //    data.ErrorDescription = "Password is uncorrect.";
-            //    return data;
-            //}
+            if (searchedUser.PasswordHash != user.PasswordHash)
+            {
+                data.ErrorDescription = "Password is uncorrect.";
+                return data;
+            }
 
             var values = new Dictionary<string, string>
                 {
