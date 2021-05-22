@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using AnimalsFriends.Contracts.Services;
+using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

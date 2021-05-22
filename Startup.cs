@@ -1,23 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 using IdentityServer4.AccessTokenValidation;
-using IdentityServer4.Models;
-using IdentityServer4.Test;
 using AnimalsFriends.Configuration;
 using AnimalsFriends.Models;
-using AnimalsFriends.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace AnimalsFriends
 {
@@ -43,23 +32,24 @@ namespace AnimalsFriends
                     .AllowAnyHeader());
             });
 
-            services.AddDbContext<AnimalsFriendsContext>(options => options.UseInMemoryDatabase("Animals"));
+            //services.AddDbContext<AnimalsFriendsContext>(options => options.UseInMemoryDatabase("AnimalsFriends"));
+            //Configuration.GetConnectionString("DefaultConnection"))
+            var connectionString = this.Configuration.GetSection("ConnectionStrings").GetSection("AnimalsFriendsDB").Value;
+            services.AddDbContext<AnimalsFriendsContext>(options => options.UseSqlServer(connectionString));           
 
             services.AddControllers()
             // Below JSON options are the default for ASP NET CORE 3.1
             // Written only for clarity. Can be safely removed as a whole.
             .AddJsonOptions(options =>
             {
-                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
+                //options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 options.JsonSerializerOptions.AllowTrailingCommas = false;
             });
 
-            //services.AddDbContext<CatalogContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddIdentityServer()
-                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
-                .AddTestUsers(new UserRepository().GetUsers())
+                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())               
+                //.AddTestUsers(new UserRepository().GetUsers())
                 .AddInMemoryClients(InMemoryConfig.GetClients())
                 .AddDeveloperSigningCredential();
 
@@ -100,11 +90,11 @@ namespace AnimalsFriends
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication();
+            app.UseAuthentication();           
 
             app.Map("/api/identity", identityServerApp => identityServerApp.UseIdentityServer());
 
-            app.UseRouting();            
+            app.UseRouting();
 
             app.UseAuthorization();
 

@@ -1,36 +1,34 @@
-﻿using IdentityServer4.Test;
-using AnimalsFriends.Contracts.Repositories;
+﻿using AnimalsFriends.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using AnimalsFriends.Models;
 
 namespace AnimalsFriends.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        static List<TestUser> users = new List<TestUser>
-        {
-             new TestUser
-              {
-                  SubjectId = "a9ea0f25-b964-409f-bcce-c92326624921",
-                  Username = "user",
-                  Password = "user123",
-              }
-        };
+        private readonly AnimalsFriendsContext _context;
 
-        public void AddUser(TestUser user)
+        public UserRepository(AnimalsFriendsContext context)
         {
-            users.Add(user);
+            _context = context;
         }
 
-        public TestUser GetUserById(string id)
+        public List<User> GetAll()
         {
-            return users.Where(a => a.SubjectId == id).FirstOrDefault();
+            return _context.Users.ToList();
         }
 
-        public List<TestUser> GetUsers()
+        public User Get(string id)
         {
-            return users;
+            return _context.Users.Where(a => a.Id == id).FirstOrDefault();
+        }        
+
+        public void Add(User user)
+        {
+            _context.Users.Add(user);
+            _context.SaveChanges();
         }
     }
 }

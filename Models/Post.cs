@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 using static AnimalsFriends.Helpers.Classes;
 
 namespace AnimalsFriends.Models
 {
     public class Post
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
 
+        [StringLength(100)]
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -18,10 +20,7 @@ namespace AnimalsFriends.Models
         public BlogCategory Category { get; set; }
 
         //Author
-        public int UserId { get; set; }
-
-        [JsonIgnore]
-        public virtual User User { get; set; }
+        public string UserId { get; set; }
 
         public DateTime PublishedOn { get; set; }
 
@@ -31,6 +30,10 @@ namespace AnimalsFriends.Models
         public DateTime? EndDate { get; set; }
 
         //For Posts
-        public int? AnimalId { get; set; }        
+        public Guid? AnimalId { get; set; }
+
+        public virtual User User { get; set; }
+
+        public virtual Animal Animal { get; set; }
     }
 }

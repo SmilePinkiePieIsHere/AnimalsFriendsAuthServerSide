@@ -1,10 +1,10 @@
 ﻿using AnimalsFriends.Helpers;
 using AnimalsFriends.Models;
-using AnimalsFriends.Contracts.Services;
+using AnimalsFriends.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
+using System;
 
 namespace AnimalsFriends.Controllers
 {
@@ -28,9 +28,9 @@ namespace AnimalsFriends.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public ActionResult GetAnimal(int id)
+        public ActionResult GetAnimal(string id)
         {
-            var animal = _animalService.GetAnimal(id);
+            var animal = _animalService.Get(Guid.Parse(id));
             if (animal == null)
             {
                 return NotFound();
@@ -41,49 +41,42 @@ namespace AnimalsFriends.Controllers
         [HttpPost]
         public ActionResult AddAnimal([FromBody] Animal animal)
         {
-            _animalService.AddAnimal(animal);
-           var test = CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
+            _animalService.Add(animal);
+            CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
             return Ok(animal);
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateAnimal([FromRoute] int id, [FromBody] Animal animal)
+        public ActionResult UpdateAnimal([FromRoute] string id, [FromBody] Animal animal)
         {
-            if (id != animal.Id)
+            if (id != animal.Id.ToString())
             {
                 return BadRequest();
             }
 
             try
             {
-                _animalService.UpdateAnimal(animal);               
+                _animalService.Update(animal);               
             }
             catch (DbUpdateConcurrencyException)
             {
-                //if (_context.Animals.Find(id) == null)
-                //{
-                //    return NotFound();
-                //}
-
                 return NotFound();
-
-                throw;
             }
 
-            return Ok(animal); /// NoContent();
+            return Ok(animal);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult RemoveAnimal([FromRoute] int id)
+        public ActionResult RemoveAnimal([FromRoute] string id)
         {
-            var animal = _animalService.FindAnimal(id);
+            var animal = _animalService.Find(Guid.Parse(id));
 
             if (animal == null)
             {
                 return NotFound();
             }
 
-            _animalService.DeleteAnimal(animal);
+            _animalService.Delete(animal);
 
             return Ok(animal); //(ActionResult)animal
         }

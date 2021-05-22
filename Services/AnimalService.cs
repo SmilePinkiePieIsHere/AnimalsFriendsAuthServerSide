@@ -1,78 +1,75 @@
 ﻿using AnimalsFriends.Helpers;
 using AnimalsFriends.Models;
-using AnimalsFriends.Contracts.Repositories;
+using AnimalsFriends.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using AnimalsFriends.Contracts.Services;
+using AnimalsFriends.Interfaces.Services;
+using System;
 
 namespace AnimalsFriends.Services
 {
     public class AnimalService : IAnimalService
     {
         private readonly IAnimalRepository _animalRepository;
-        private readonly AnimalsFriendsContext _context;
 
-        public AnimalService(IAnimalRepository animalRepository, AnimalsFriendsContext context)
+        public AnimalService(IAnimalRepository animalRepository)
         {
             _animalRepository = animalRepository;
-            _context = context;
-
-            _context.Database.EnsureCreated();
         }
 
         public List<Animal> GetAll(AnimalQueryParameters queryParameters)
         {
-            IQueryable<Animal> animals = _context.Animals;
+            IQueryable<Animal> animals = _animalRepository.GetAll();
 
             if (queryParameters.Status != null)
             {
-                animals = animals.Where(a => a.CurrentStatus.ToString().ToLower() == queryParameters.Status.ToLower());
+                animals = animals.Where(a => a.CurrentStatus.ToLower() == queryParameters.Status.ToLower());
             }
 
             if (queryParameters.Gender != null)
             {
-                animals = animals.Where(a => a.Gender.ToString().ToLower() == queryParameters.Gender.ToLower());
+                animals = animals.Where(a => a.Gender.ToLower() == queryParameters.Gender.ToLower());
             }
 
             if (queryParameters.Species != null)
             {
-                animals = animals.Where(a => a.Species.ToString().ToLower() == queryParameters.Species.ToLower());
+                animals = animals.Where(a => a.Species.ToLower() == queryParameters.Species.ToLower());
             }
 
-            animals = animals
+            if (animals.Count() > 0)
+            {
+                animals = animals
                .Skip(queryParameters.Size * (queryParameters.Page - 1))
                .Take(queryParameters.Size);
-          
-            return  animals.ToList();
+            }
+
+            return animals.ToList();
         }
 
-        public Animal GetAnimal(int id)
+        public Animal Get(Guid id)
         {
-            return _context.Animals.Find(id);
+            return _animalRepository.Get(id);
         }
 
-        public void AddAnimal(Animal animal)
+        public void Add(Animal animal)
         {
-            _context.Animals.Add(animal);
-            _context.SaveChanges();           
+            _animalRepository.Add(animal);
         }
 
-        public void UpdateAnimal(Animal animal)
+        public void Update(Animal animal)
         {
-            _context.Entry(animal).State = EntityState.Modified;
-            _context.SaveChanges();
+            _animalRepository.Update(animal);
         }
 
-        public void DeleteAnimal(Animal animal)
+        public void Delete(Animal animal)
         {
-            _context.Animals.Remove(animal);
-            _context.SaveChanges();
+            _animalRepository.Delete(animal);
         }
 
-        public Animal FindAnimal(int id)
+        public Animal Find(Guid id)
         {
-            return _context.Animals.Find(id);
+            return _animalRepository.Find(id);
         }
     }
 }

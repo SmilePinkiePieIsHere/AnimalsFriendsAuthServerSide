@@ -1,6 +1,5 @@
-﻿using IdentityServer4.Test;
-using AnimalsFriends.Contracts.Repositories;
-using AnimalsFriends.Contracts.Services;
+﻿using AnimalsFriends.Interfaces.Repositories;
+using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -8,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace AnimalsFriends.Services
 {
@@ -22,15 +24,10 @@ namespace AnimalsFriends.Services
         }
 
         public async Task<OWinResponseToken> Register(User user)
-        {
-            TestUser newUser = new TestUser
-            {
-                Username = user.Username,
-                Password = user.Password,
-                SubjectId = Guid.NewGuid().ToString()
-        };
-
-            _userRepository.AddUser(newUser);
+        {              
+            user.PasswordSalt = GenerateSalt();
+            user.PasswordHash = GenerateHash(user.PasswordHash, user.PasswordSalt);
+            _userRepository.Add(user);
 
             var values = new Dictionary<string, string>
                 {
@@ -38,8 +35,8 @@ namespace AnimalsFriends.Services
                     { "client_secret", "test" },
                     { "scope", "AnimalsFriends offline_access" },
                     { "grant_type", "password" },
-                    { "username", newUser.Username },
-                    { "password", newUser.Password }
+                    { "username", user.UserName },
+                    { "password", user.PasswordHash }
                 };
 
             var content = new FormUrlEncodedContent(values);
@@ -68,21 +65,29 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Login(User user)
         {
+            var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
+            user.PasswordHash = GenerateHash(user.PasswordHash, searchedUser.PasswordSalt);
+
+            OWinResponseToken data = new OWinResponseToken();
+            if (searchedUser.PasswordHash != user.PasswordHash)
+            {
+                data.ErrorDescription = "Password is uncorrect.";
+                return data;
+            }
+
             var values = new Dictionary<string, string>
                 {
                     { "client_id", "testClient" },
                     { "client_secret", "test" },
                     { "scope", "AnimalsFriends offline_access" },
                     { "grant_type", "password" },
-                    { "username", user.Username },
-                    { "password", user.Password }
+                    { "username", user.UserName },
+                    { "password", user.PasswordHash }
                 };
 
             var content = new FormUrlEncodedContent(values);
 
-            var response = await client.PostAsync("https://localhost:44337/api/identity/connect/token", content);
-
-            OWinResponseToken data = new OWinResponseToken();
+            var response = await client.PostAsync("https://localhost:44337/api/identity/connect/token", content);            
 
             if (response.IsSuccessStatusCode)
             {
@@ -135,6 +140,27 @@ namespace AnimalsFriends.Services
             }
 
             return data;
+        }
+
+        private byte[] GenerateSalt()
+        {
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+
+            return salt;
+        }
+
+        private string GenerateHash(string password, byte[] passwordSalt)
+        {
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                                   password: password,
+                                   salt: passwordSalt,
+                                   prf: KeyDerivationPrf.HMACSHA1,
+                                   iterationCount: 10000,
+                                   numBytesRequested: 256 / 8));
         }
     }
 }
