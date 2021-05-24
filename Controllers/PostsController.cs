@@ -15,9 +15,11 @@ namespace AnimalsFriends.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IPostService _postService;
-        public PostsController(IPostService postService)
+        private readonly IUserRepository _userRepository;
+        public PostsController(IPostService postService, IUserRepository userRepository)
         {
             _postService = postService;
+            _userRepository = userRepository;
         }
 
         [AllowAnonymous]
@@ -37,6 +39,10 @@ namespace AnimalsFriends.Controllers
             {
                 return NotFound();
             }
+
+            //var user = _userRepository.Get(post.UserId);
+            //post.User = user;
+
             return Ok(post);
         }
 
