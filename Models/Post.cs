@@ -24,12 +24,10 @@ namespace AnimalsFriends.Models
 
         public DateTime PublishedOn { get; set; }
 
-        //For Causes
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
 
-        //For Posts
         public Guid? AnimalId { get; set; }
 
         public virtual User User { get; set; }

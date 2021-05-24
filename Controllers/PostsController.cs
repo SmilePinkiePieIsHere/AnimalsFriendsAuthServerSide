@@ -1,4 +1,5 @@
 ﻿using AnimalsFriends.Helpers;
+using AnimalsFriends.Interfaces.Repositories;
 using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -43,7 +44,7 @@ namespace AnimalsFriends.Controllers
         public ActionResult AddPost([FromBody] Post post)
         {
             _postService.Add(post);
-            var test = CreatedAtAction("GetPost", new { id = post.Id }, post);
+            //var test = CreatedAtAction("GetPost", new { id = post.Id }, post);
             return Ok(post);
         }
     }

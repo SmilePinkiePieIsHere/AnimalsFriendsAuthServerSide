@@ -98,6 +98,7 @@ namespace AnimalsFriends.Services
                 data.ExpirationInSeconds = res.expires_in;
                 data.TokenType = res.token_type;
                 data.RefreshToken = res.refresh_token;
+                data.UserId = searchedUser.Id;
             }
             else
             {
