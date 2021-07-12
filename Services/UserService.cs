@@ -65,7 +65,7 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Login(User user)
         {
-            var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
+            var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower() || u.Email.ToLower() == user.Email.ToLower());
             user.PasswordHash = GenerateHash(user.PasswordHash, searchedUser.PasswordSalt);
 
             OWinResponseToken data = new OWinResponseToken();
@@ -81,7 +81,7 @@ namespace AnimalsFriends.Services
                     { "client_secret", "test" },
                     { "scope", "AnimalsFriends offline_access" },
                     { "grant_type", "password" },
-                    { "username", user.UserName },
+                    { "username", searchedUser.UserName },
                     { "password", user.PasswordHash }
                 };
 

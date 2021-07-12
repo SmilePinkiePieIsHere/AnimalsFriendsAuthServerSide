@@ -40,8 +40,14 @@ namespace AnimalsFriends.Controllers
                 return NotFound();
             }
 
-            //var user = _userRepository.Get(post.UserId);
-            //post.User = user;
+            var user = _userRepository.Get(post.UserId);
+            post.User = new User
+            {
+                Id =  user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName
+            };
 
             return Ok(post);
         }
