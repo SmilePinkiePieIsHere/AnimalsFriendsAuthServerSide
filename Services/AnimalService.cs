@@ -24,17 +24,17 @@ namespace AnimalsFriends.Services
 
             if (queryParameters.Status != null)
             {
-                animals = animals.Where(a => a.CurrentStatus.ToLower() == queryParameters.Status.ToLower());
+                animals = animals.Where(a => queryParameters.Status.Contains(a.CurrentStatus.ToLower()));
             }
 
             if (queryParameters.Gender != null)
             {
-                animals = animals.Where(a => a.Gender.ToLower() == queryParameters.Gender.ToLower());
+                animals = animals.Where(a => queryParameters.Gender.Contains(a.Gender.ToLower()));
             }
 
             if (queryParameters.Species != null)
             {
-                animals = animals.Where(a => a.Species.ToLower() == queryParameters.Species.ToLower());
+                animals = animals.Where(a => queryParameters.Species.Contains(a.Species.ToLower()));
             }
 
             if (animals.Count() > 0)
