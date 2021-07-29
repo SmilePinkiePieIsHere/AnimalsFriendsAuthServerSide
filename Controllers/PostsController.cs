@@ -59,5 +59,20 @@ namespace AnimalsFriends.Controllers
             //var test = CreatedAtAction("GetPost", new { id = post.Id }, post);
             return Ok(post);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult RemovePost([FromRoute] string id)
+        {
+            var post = _postService.Find(Guid.Parse(id));
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            _postService.Delete(post);
+
+            return Ok(post); //(ActionResult)animal
+        }
     }
 }
