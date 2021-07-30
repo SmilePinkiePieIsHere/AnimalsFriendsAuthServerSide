@@ -22,6 +22,12 @@ namespace AnimalsFriends.Services
         {
             IQueryable<Animal> animals = _animalRepository.GetAll();
 
+            if (queryParameters.Search != null)
+            {
+                animals = animals.Where(a => a.Description.ToLower().Contains(queryParameters.Search.ToLower()) 
+                                            || a.Name.ToLower().Contains(queryParameters.Search.ToLower()));
+            }
+
             if (queryParameters.Status != null)
             {
                 var statuses = queryParameters.Status[0].Split(',');

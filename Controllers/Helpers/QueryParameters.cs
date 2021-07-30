@@ -12,6 +12,9 @@ namespace AnimalsFriends.Helpers
         const int _maxSize = 100;
         private int _size = 50;
 
+        [JsonProperty("search")]
+        public string Search { get; set; }
+
         [JsonProperty("page")]
         public int Page { get; set; } = 1;
 
