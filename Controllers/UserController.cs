@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalsFriends.Controllers
-{
-    [Route("[controller]")]
+{    
     [ApiController]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -50,6 +50,7 @@ namespace AnimalsFriends.Controllers
         }
 
         [Authorize]
+        [Route("users")]
         [HttpGet]
         public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
         {
