@@ -146,20 +146,6 @@ namespace AnimalsFriends.Services
             return data;
         }
 
-        public List<User> GetAll(QueryParameters queryParameters)
-        {
-            IQueryable<User> users = _userRepository.GetAll();
-
-            if (users.Count() > 0)
-            {
-                users = users
-               .Skip(queryParameters.Size * (queryParameters.Page - 1))
-               .Take(queryParameters.Size);
-            }
-
-            return users.ToList();
-        }
-
         private byte[] GenerateSalt()
         {
             byte[] salt = new byte[128 / 8];

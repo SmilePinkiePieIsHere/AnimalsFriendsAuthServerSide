@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AnimalsFriends.Helpers;
 using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -47,13 +46,6 @@ namespace AnimalsFriends.Controllers
         public string GetUserMsg()
         {
             return " is authenticated";
-        }
-
-        [Authorize]
-        [HttpGet]
-        public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
-        {
-            return Ok(_userService.GetAll(queryParameters));
         }
     }
 }
