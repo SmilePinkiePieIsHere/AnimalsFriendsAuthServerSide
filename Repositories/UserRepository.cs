@@ -15,9 +15,9 @@ namespace AnimalsFriends.Repositories
             _context = context;
         }
 
-        public List<User> GetAll()
+        public IQueryable<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users;
         }
 
         public User Get(string id)

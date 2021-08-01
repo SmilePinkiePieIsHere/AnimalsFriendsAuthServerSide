@@ -21,5 +21,8 @@ namespace AnimalsFriends.Models
 
         [JsonPropertyName("user_id")]
         public string UserId { get; set; }
+
+        [JsonPropertyName("is_admin")]
+        public bool IsAdmin { get; set; }
     }
 }

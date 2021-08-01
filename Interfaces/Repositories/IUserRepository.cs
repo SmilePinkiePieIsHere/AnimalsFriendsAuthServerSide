@@ -1,11 +1,11 @@
 ﻿using AnimalsFriends.Models;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace AnimalsFriends.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        List<User> GetAll();
+        IQueryable<User> GetAll();
 
         User Get(string id);
 
