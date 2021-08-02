@@ -26,7 +26,21 @@ namespace AnimalsFriends.Controllers
         [HttpGet]
         public IActionResult GetAll([FromQuery] PostQueryParameters queryParameters)
         {
-            return Ok(_postService.GetAll(queryParameters));
+            var posts = _postService.GetAll(queryParameters);
+
+            foreach (var post in posts)
+            {
+                var user = _userRepository.Get(post.UserId);
+                post.User = new User
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserName = user.UserName
+                };
+            }
+
+            return Ok(posts);
         }
 
 
