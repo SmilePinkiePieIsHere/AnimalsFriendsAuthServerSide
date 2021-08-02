@@ -18,5 +18,11 @@ namespace AnimalsFriends.Models
 
         [JsonPropertyName("error_description")]
         public string ErrorDescription { get; set; }
+
+        [JsonPropertyName("user_id")]
+        public string UserId { get; set; }
+
+        [JsonPropertyName("is_admin")]
+        public bool IsAdmin { get; set; }
     }
 }

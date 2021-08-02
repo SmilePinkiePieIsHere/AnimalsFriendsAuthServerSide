@@ -1,13 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using AnimalsFriends.Helpers;
 using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalsFriends.Controllers
-{
-    [Route("[controller]")]
+{    
     [ApiController]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -46,6 +48,42 @@ namespace AnimalsFriends.Controllers
         public string GetUserMsg()
         {
             return " is authenticated";
+        }
+
+        [Authorize]
+        [Route("users")]
+        [HttpGet]
+        public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
+        {
+            return Ok(_userService.GetAll(queryParameters));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public ActionResult GetUser(string id)
+        {
+            var user = _userService.Get(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public ActionResult RemoveUser([FromRoute] string id)
+        {
+            var user = _userService.Find(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _userService.Delete(user);
+
+            return Ok(user);
         }
     }
 }

@@ -21,9 +21,15 @@ namespace AnimalsFriends.Services
         {
             IQueryable<Post> posts = _postRepository.GetAll();
 
+            if (queryParameters.Search != null)
+            {
+                posts = posts.Where(p => p.Description.ToLower().Contains(queryParameters.Search.ToLower())
+                                            || p.Title.ToLower().Contains(queryParameters.Search.ToLower()));
+            }
+
             //if (queryParameters.Category != null)
             //{
-            //    posts = posts.Where(a => a.Category == queryParameters.Category.ToLower());
+            //    posts = posts.Where(p => p.Category == queryParameters.Category.ToLower());
             //}
 
             if (posts.Count() > 0)

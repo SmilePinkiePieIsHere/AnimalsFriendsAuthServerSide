@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using AnimalsFriends.Models;
+using System;
 
 namespace AnimalsFriends.Repositories
 {
@@ -15,9 +16,9 @@ namespace AnimalsFriends.Repositories
             _context = context;
         }
 
-        public List<User> GetAll()
+        public IQueryable<User> GetAll()
         {
-            return _context.Users.ToList();
+            return _context.Users;
         }
 
         public User Get(string id)
@@ -29,6 +30,17 @@ namespace AnimalsFriends.Repositories
         {
             _context.Users.Add(user);
             _context.SaveChanges();
+        }
+
+        public void Delete(User user)
+        {
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+        }
+
+        public User Find(string id)
+        {
+            return _context.Users.Find(id);
         }
     }
 }

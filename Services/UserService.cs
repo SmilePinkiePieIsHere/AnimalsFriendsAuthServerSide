@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Linq;
+using AnimalsFriends.Helpers;
 
 namespace AnimalsFriends.Services
 {
@@ -65,7 +67,7 @@ namespace AnimalsFriends.Services
 
         public async Task<OWinResponseToken> Login(User user)
         {
-            var searchedUser = _userRepository.GetAll().Find(u => u.UserName.ToLower() == user.UserName.ToLower());
+            var searchedUser = _userRepository.GetAll().ToList().Find(u => u.UserName.ToLower() == user.UserName.ToLower() || u.Email.ToLower() == user.Email.ToLower());
             user.PasswordHash = GenerateHash(user.PasswordHash, searchedUser.PasswordSalt);
 
             OWinResponseToken data = new OWinResponseToken();
@@ -81,7 +83,7 @@ namespace AnimalsFriends.Services
                     { "client_secret", "test" },
                     { "scope", "AnimalsFriends offline_access" },
                     { "grant_type", "password" },
-                    { "username", user.UserName },
+                    { "username", searchedUser.UserName },
                     { "password", user.PasswordHash }
                 };
 
@@ -98,6 +100,8 @@ namespace AnimalsFriends.Services
                 data.ExpirationInSeconds = res.expires_in;
                 data.TokenType = res.token_type;
                 data.RefreshToken = res.refresh_token;
+                data.UserId = searchedUser.Id;
+                data.IsAdmin = searchedUser.IsAdmin;
             }
             else
             {
@@ -140,6 +144,35 @@ namespace AnimalsFriends.Services
             }
 
             return data;
+        }
+
+        public List<User> GetAll(QueryParameters queryParameters)
+        {
+            IQueryable<User> users = _userRepository.GetAll();
+
+            if (users.Count() > 0)
+            {
+                users = users
+               .Skip(queryParameters.Size * (queryParameters.Page - 1))
+               .Take(queryParameters.Size);
+            }
+
+            return users.ToList();
+        }
+
+        public User Get(string id)
+        {
+            return _userRepository.Get(id);
+        }
+
+        public void Delete(User user)
+        {
+            _userRepository.Delete(user);
+        }
+
+        public User Find(string id)
+        {
+            return _userRepository.Find(id);
         }
 
         private byte[] GenerateSalt()

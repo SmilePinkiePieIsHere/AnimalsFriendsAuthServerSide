@@ -21,20 +21,29 @@ namespace AnimalsFriends.Services
         public List<Animal> GetAll(AnimalQueryParameters queryParameters)
         {
             IQueryable<Animal> animals = _animalRepository.GetAll();
-
+            
             if (queryParameters.Status != null)
             {
-                animals = animals.Where(a => a.CurrentStatus.ToLower() == queryParameters.Status.ToLower());
+                var statuses = queryParameters.Status[0].Split(',');
+                animals = animals.Where(a => statuses.Contains(a.CurrentStatus.ToLower()));
             }
 
             if (queryParameters.Gender != null)
             {
-                animals = animals.Where(a => a.Gender.ToLower() == queryParameters.Gender.ToLower());
+                var genders = queryParameters.Gender[0].Split(',');
+                animals = animals.Where(a => genders.Contains(a.Gender.ToLower()));
             }
 
             if (queryParameters.Species != null)
             {
-                animals = animals.Where(a => a.Species.ToLower() == queryParameters.Species.ToLower());
+                var species = queryParameters.Species[0].Split(',');
+                animals = animals.Where(a => species.Contains(a.Species.ToLower()));
+            }
+
+            if (queryParameters.Search != null)
+            {
+                animals = animals.Where(a => a.Description.ToLower().Contains(queryParameters.Search.ToLower())
+                                            || a.Name.ToLower().Contains(queryParameters.Search.ToLower()));
             }
 
             if (animals.Count() > 0)

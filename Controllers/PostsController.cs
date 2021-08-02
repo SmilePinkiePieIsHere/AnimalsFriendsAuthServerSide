@@ -1,4 +1,5 @@
 ﻿using AnimalsFriends.Helpers;
+using AnimalsFriends.Interfaces.Repositories;
 using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -14,9 +15,11 @@ namespace AnimalsFriends.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IPostService _postService;
-        public PostsController(IPostService postService)
+        private readonly IUserRepository _userRepository;
+        public PostsController(IPostService postService, IUserRepository userRepository)
         {
             _postService = postService;
+            _userRepository = userRepository;
         }
 
         [AllowAnonymous]
@@ -36,6 +39,16 @@ namespace AnimalsFriends.Controllers
             {
                 return NotFound();
             }
+
+            var user = _userRepository.Get(post.UserId);
+            post.User = new User
+            {
+                Id =  user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName
+            };
+
             return Ok(post);
         }
 
@@ -43,8 +56,23 @@ namespace AnimalsFriends.Controllers
         public ActionResult AddPost([FromBody] Post post)
         {
             _postService.Add(post);
-            var test = CreatedAtAction("GetPost", new { id = post.Id }, post);
+            //var test = CreatedAtAction("GetPost", new { id = post.Id }, post);
             return Ok(post);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult RemovePost([FromRoute] string id)
+        {
+            var post = _postService.Find(Guid.Parse(id));
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            _postService.Delete(post);
+
+            return Ok(post); //(ActionResult)animal
         }
     }
 }
