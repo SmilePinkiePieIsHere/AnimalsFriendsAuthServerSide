@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AnimalsFriends.Helpers;
 using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
@@ -55,6 +56,34 @@ namespace AnimalsFriends.Controllers
         public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
         {
             return Ok(_userService.GetAll(queryParameters));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public ActionResult GetUser(string id)
+        {
+            var user = _userService.Get(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public ActionResult RemoveUser([FromRoute] string id)
+        {
+            var user = _userService.Find(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _userService.Delete(user);
+
+            return Ok(user);
         }
     }
 }

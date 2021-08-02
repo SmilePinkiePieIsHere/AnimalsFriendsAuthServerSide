@@ -160,6 +160,21 @@ namespace AnimalsFriends.Services
             return users.ToList();
         }
 
+        public User Get(string id)
+        {
+            return _userRepository.Get(id);
+        }
+
+        public void Delete(User user)
+        {
+            _userRepository.Delete(user);
+        }
+
+        public User Find(string id)
+        {
+            return _userRepository.Find(id);
+        }
+
         private byte[] GenerateSalt()
         {
             byte[] salt = new byte[128 / 8];
