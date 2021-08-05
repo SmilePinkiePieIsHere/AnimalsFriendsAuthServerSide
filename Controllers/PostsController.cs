@@ -70,19 +70,11 @@ namespace AnimalsFriends.Controllers
         [HttpPost]
         public ActionResult AddPost([FromBody] Post post)
         {
-            var user = _userRepository.Get(post.UserId);
-            //post.User = new User
-            //{
-            //    Id = user.Id,
-            //    FirstName = user.FirstName,
-            //    LastName = user.LastName,
-            //    UserName = user.UserName
-            //};
-            //post.PublishedOn = DateTime.Now;
+            post.PublishedOn = DateTime.Now;
 
             _postService.Add(post);
-            //post
-            return Ok("");
+
+            return Ok(post);
         }
 
         [HttpPut("{id}")]
@@ -117,7 +109,7 @@ namespace AnimalsFriends.Controllers
 
             _postService.Delete(post);
 
-            return Ok(post); //(ActionResult)animal
+            return Ok(post);
         }
     }
 }
