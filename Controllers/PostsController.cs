@@ -4,6 +4,7 @@ using AnimalsFriends.Interfaces.Services;
 using AnimalsFriends.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -69,8 +70,38 @@ namespace AnimalsFriends.Controllers
         [HttpPost]
         public ActionResult AddPost([FromBody] Post post)
         {
+            var user = _userRepository.Get(post.UserId);
+            //post.User = new User
+            //{
+            //    Id = user.Id,
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName,
+            //    UserName = user.UserName
+            //};
+            //post.PublishedOn = DateTime.Now;
+
             _postService.Add(post);
-            //var test = CreatedAtAction("GetPost", new { id = post.Id }, post);
+            //post
+            return Ok("");
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdatePost([FromRoute] string id, [FromBody] Post post)
+        {
+            if (id != post.Id.ToString())
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _postService.Update(post);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
+
             return Ok(post);
         }
 
