@@ -15,11 +15,9 @@ namespace AnimalsFriends.Models
         public string Description { get; set; }
 
         public string PreviewImg { get; set; }
-
-        //can make it class later on
+       
         public BlogCategory Category { get; set; }
-
-        //Author
+       
         public string UserId { get; set; }
 
         public DateTime PublishedOn { get; set; }

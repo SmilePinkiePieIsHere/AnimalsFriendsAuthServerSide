@@ -24,16 +24,13 @@ namespace AnimalsFriends
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", builder =>
-                    //fix this to use configurationmanager setting, because we will have dev/staging/prod environments
+                options.AddPolicy("AllowAll", builder =>                    
                     builder.WithOrigins("http://localhost:3000")
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-
-            //services.AddDbContext<AnimalsFriendsContext>(options => options.UseInMemoryDatabase("AnimalsFriends"));
-            //Configuration.GetConnectionString("DefaultConnection"))
+           
             var connectionString = this.Configuration.GetSection("ConnectionStrings").GetSection("AnimalsFriendsDB").Value;
             services.AddDbContext<AnimalsFriendsContext>(options => options.UseSqlServer(connectionString));           
 
@@ -41,15 +38,13 @@ namespace AnimalsFriends
             // Below JSON options are the default for ASP NET CORE 3.1
             // Written only for clarity. Can be safely removed as a whole.
             .AddJsonOptions(options =>
-            {
-                //options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            {               
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 options.JsonSerializerOptions.AllowTrailingCommas = false;
             });
 
             services.AddIdentityServer()
-                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())               
-                //.AddTestUsers(new UserRepository().GetUsers())
+                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
                 .AddInMemoryClients(InMemoryConfig.GetClients())
                 .AddDeveloperSigningCredential();
 

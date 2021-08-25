@@ -5,8 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace AnimalsFriends.Models
 {
     public class User : IdentityUser
-    {
-        //[IsUnique = true]
+    {        
         override public string  UserName { get; set; }
 
         [StringLength(50)]

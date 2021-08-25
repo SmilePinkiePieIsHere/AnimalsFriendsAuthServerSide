@@ -78,7 +78,7 @@ namespace AnimalsFriends.Controllers
 
             _animalService.Delete(animal);
 
-            return Ok(animal); //(ActionResult)animal
+            return Ok(animal);
         }
     }
 }
